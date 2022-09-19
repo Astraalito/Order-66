@@ -61,13 +61,21 @@
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
     background-color: rgba(0, 0, 0, 0.4);
-    transition: all 0.5s ease-out;
+    transition: backdrop-filter, background-color 0.5s ease-out;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.6em;
+    font-weight: 100;
 }
 
 .language-menu{
     position: fixed;
     height: 100vh;
     background-color: var(--color-background);
+    font-size: 1.1em;
     width: 20vw;
     padding: 32px;
     right: calc(-20vw - 32px - 32px);
@@ -76,7 +84,7 @@
 
 .active {
     right: 0;
-    transition: all 0.5s ease-out;
+    transition: right 0.5s ease-out;
 }
 
 .language-menu i {
@@ -94,8 +102,7 @@
 }
 
 .language-menu ul li {
-    padding: 4px 8px;
-    margin-bottom: 12px;
+    padding: 12px;
 }
 .language-menu ul li :hover{
     background-color: rgba(0, 0, 0, 0);
