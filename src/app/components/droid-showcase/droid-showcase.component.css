@@ -1,0 +1,17 @@
+.main{
+    position: absolute;
+    width: 100vw;
+    margin: 0;
+    z-index: -1;
+}
+
+.showcase-section{
+    height: 100vh;
+}
+
+.droidName{
+    text-align: center;
+    font-family: 'Open-Sans', 'arial', sans-serif;
+    padding-top: var(--navbar-height);
+    color: #171a20;
+}

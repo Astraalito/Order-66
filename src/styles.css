@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: Open-Sans;
+    src: url(assets/fonts/OpenSans/OpenSans-Regular.ttf);
+}
+@font-face {
+    font-family: Open-Sans-Light;
+    src: url(assets/fonts/OpenSans/OpenSans-Light.ttf);
+}
+@font-face {
+    font-family: Open-Sans-Bold;
+    src: url(assets/fonts/OpenSans/OpenSans-Bold.ttf);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+:root{
+    --navbar-height: calc(12px + 12px + 2rem);
+    --color-background: #eff0f3;
+    --color-headline: #0d0d0d;
+    --color-paragraph: #2a2a2a;
+    --color-button: #ff8e3c;
+    --color-button-text: #0d0d0d;
+}
+
+body{
+    background-color: var(--color-background);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-family: 'Open-Sans', 'arial', sans-serif;
+}

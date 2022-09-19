@@ -1,0 +1,109 @@
+.navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding: 12px 32px;
+
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-headline);
+}
+
+.navbar .actions {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .actions .action-section {
+    margin: 0 12px;
+    font-size: 1rem;
+}
+
+.menu-logo {
+    color: var(--color-headline);
+    font-family: Open-Sans-Bold;
+    font-size: 1.6em;
+    margin: 0 12px;
+}
+
+.menu-logo i {
+    font-style: bold;
+}
+
+.order-btn{
+    border: none;
+    border-radius: 20px;
+    background-color: var(--color-button);
+    color: var(--color-button-text);
+    padding: 8px;
+}
+
+.language-btn{
+    color: var(--color-paragraph);
+}
+
+.blur-overlay{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0);
+    transition: all 0.5s ease-out;
+    
+}
+
+.activeBlur {
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: all 0.5s ease-out;
+}
+
+.language-menu{
+    position: fixed;
+    height: 100vh;
+    background-color: var(--color-background);
+    width: 20vw;
+    padding: 32px;
+    right: calc(-20vw - 32px - 32px);
+    transition: all 0.5s ease-out;
+}
+
+.active {
+    right: 0;
+    transition: all 0.5s ease-out;
+}
+
+.language-menu i {
+    padding: 8px;
+}
+.language-menu ul :hover, .language-menu i:hover, .language-menu i:focus {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    transition: all 0.5s;
+}
+
+.language-menu ul {
+    border-radius: 4px;
+    margin-top: 12px;
+}
+
+.language-menu ul li {
+    padding: 4px 8px;
+    margin-bottom: 12px;
+}
+.language-menu ul li :hover{
+    background-color: rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 720px) {
+    .button-text{
+        display: none;
+    }
+
+}
