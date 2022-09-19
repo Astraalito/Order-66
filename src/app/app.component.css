@@ -28,11 +28,16 @@
     color: var(--color-headline);
     font-family: Open-Sans-Bold;
     font-size: 1.6em;
+    font-weight: 200;
     margin: 0 12px;
 }
 
 .menu-logo i {
     font-style: bold;
+}
+
+.menu-logo span {
+    font-family: Open-Sans-Light;
 }
 
 .order-btn{

@@ -1,5 +1,7 @@
 .main{
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     margin: 0;
     z-index: -1;
@@ -7,11 +9,35 @@
 
 .showcase-section{
     height: 100vh;
+    max-height: 100vh;
+    position: relative;
 }
 
-.droidName{
-    text-align: center;
-    font-family: 'Open-Sans', 'arial', sans-serif;
+.showcase-section .wrapper {
     padding-top: var(--navbar-height);
-    color: #171a20;
+}
+
+.showcase-section .droid-title {
+    padding: 24px 0;
+    width: 100vw;
+    text-align: center;
+}
+
+.lower-section{
+    width: 100vw;
+    padding: 0 120px 48px 120px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+.caracteristics-section{
+    width: 100%;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
 }

@@ -9,23 +9,29 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 export class ModelService {
 
   gltfLoader: GLTFLoader = new GLTFLoader();
-  modelMesh : Object3D;
+  bb8Mesh : Object3D;
+  bb8HeadGroup : Object3D;
 
   constructor() { }
 
   public loadModel(src : string, scene : THREE.Scene) {
-    const group = new THREE.Group();
+    const bb8Group = new THREE.Group();
+    const headGroup = new THREE.Group();
     this.gltfLoader.load(
       src,
       (gltf) => {
         const modelObjects = [...gltf.scene.children]
         for(const object of modelObjects){
-          group.add(object)
+          bb8Group.add(object)   
+          if(object.name != 'body-sphere') {headGroup.add(object)}       
         }
-        this.modelMesh = group;
-        this.modelMesh.rotateY(Math.PI)
+        this.bb8HeadGroup = headGroup;
+        bb8Group.add(headGroup)
+        this.bb8Mesh = bb8Group;
+        console.log(this.bb8Mesh);
         
-        scene.add(this.modelMesh)
+        this.bb8Mesh.rotateY(Math.PI)
+        scene.add(this.bb8Mesh)
       },
       () => {
         console.log('progress');

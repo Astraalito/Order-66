@@ -1,3 +1,4 @@
+/* Open-Sans */
 @font-face {
     font-family: Open-Sans;
     src: url(assets/fonts/OpenSans/OpenSans-Regular.ttf);
@@ -9,6 +10,36 @@
 @font-face {
     font-family: Open-Sans-Bold;
     src: url(assets/fonts/OpenSans/OpenSans-Bold.ttf);
+}
+
+/* Gotham */
+@font-face {
+    font-family: Gotham;
+    src: url(assets/fonts/Gotham/Gotham_Regular.otf);
+}
+@font-face {
+    font-family: Gotham-Thin;
+    src: url(assets/fonts/Gotham/Gotham_Thin.otf);
+}
+@font-face {
+    font-family: Gotham-Bold;
+    src: url(assets/fonts/Gotham/Gotham_Bold.otf);
+}
+@font-face {
+    font-family: Gotham-Book;
+    src: url(assets/fonts/Gotham/Gotham_Book.otf);
+}
+@font-face {
+    font-family: Gotham-italic;
+    src: url(assets/fonts/Gotham/Gotham_Italic.otf);
+}
+@font-face {
+    font-family: Gotham-Light;
+    src: url(assets/fonts/Gotham/Gotham_Light.otf);
+}
+@font-face {
+    font-family: Gotham-Medium;
+    src: url(assets/fonts/Gotham/Gotham_Medium.otf);
 }
 
 *{
@@ -32,4 +63,20 @@ body{
     overflow-x: hidden;
     overflow-y: scroll;
     font-family: 'Open-Sans', 'arial', sans-serif;
+}
+
+h1 {
+    font-family: 'Gotham-Book';
+    font-size: 2em;
+    color: var(--color-headline)
+}
+h2 {
+    font-family: 'Gotham-Book';
+    font-size: 1.7em;
+    color: var(--color-headline)
+}
+h3 {
+    font-family: 'Gotham-Thin';
+    font-size: 1.3em;
+    color: var(--color-headline)
 }
