@@ -61,7 +61,7 @@
 body{
     background-color: var(--color-background);
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
     font-family: 'Open-Sans', 'arial', sans-serif;
 }
 

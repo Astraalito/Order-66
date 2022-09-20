@@ -67,10 +67,7 @@ export class ThreeWidgetComponent implements OnInit {
     // Camera
     const camera = new THREE.PerspectiveCamera(50, this.windowSizes.width / this.windowSizes.height, 0.1, 100)
     camera.position.set(0,3,5);
-    scene.add(camera)
-
-    console.log(camera.aspect);
-    
+    scene.add(camera)    
 
     //Load Model
     this.modelService.loadModel('assets/models/lala/untitled.gltf', scene);
@@ -129,13 +126,11 @@ export class ThreeWidgetComponent implements OnInit {
           //Ball rolling
           const rot = this.computeRotationOfDisplacement(distance, 1.5269315242767334)
           this.modelService.bb8Mesh.children[0].rotation.z += rot;
-         
           
-          // this.modelService.modelMesh.children[6].rotateZ(Math.PI / 48)
+          // head rotation
           const baseRotationZ = 0
           const currentRotationZ = this.modelService.bb8HeadGroup.rotation.z
           const rotationDifference = baseRotationZ - currentRotationZ
-          
           this.rotateAround(this.modelService.bb8HeadGroup, this.modelService.bb8Mesh.children[0].position, new THREE.Vector3(0, 0, distance * 2 + rotationDifference))
         }
 

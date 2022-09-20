@@ -24,7 +24,7 @@
     font-size: 1rem;
 }
 
-.menu-logo {
+.logo {
     color: var(--color-headline);
     font-family: Open-Sans-Bold;
     font-size: 1.6em;
@@ -32,11 +32,11 @@
     margin: 0 12px;
 }
 
-.menu-logo i {
+.logo i {
     font-style: bold;
 }
 
-.menu-logo span {
+.logo span {
     font-family: Open-Sans-Light;
 }
 
@@ -118,4 +118,27 @@
         display: none;
     }
 
+    .language-menu{
+        position: fixed;
+        top: 0;
+        height: 100vh;
+        background-color: var(--color-background);
+        font-size: 1.1em;
+        width: 70vw;
+        padding: 32px;
+        right: calc(-80vw - 32px - 32px);
+        transition: all 0.5s ease-out;
+    }
+
+    .active {
+        right: 0;
+        transition: right 0.5s ease-out;
+    }
+
+}
+
+@media screen and (max-width: 650px) {
+    .navbar{
+        padding: none;
+    }
 }

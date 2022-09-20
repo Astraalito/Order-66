@@ -1,4 +1,4 @@
-.main{
+.sections-wrapper{
     position: absolute;
     top: 0;
     left: 0;
@@ -7,23 +7,17 @@
     z-index: -1;
 }
 
-.showcase-section{
+:host ::ng-deep .showcase-section{
     height: 100vh;
     max-height: 100vh;
     position: relative;
 }
 
-.showcase-section .wrapper {
+:host ::ng-deep .showcase-section .wrapper {
     padding-top: var(--navbar-height);
 }
 
-.showcase-section .droid-title {
-    padding: 24px 0;
-    width: 100vw;
-    text-align: center;
-}
-
-.lower-section{
+:host ::ng-deep .lower-section{
     width: 100vw;
     padding: 0 120px 48px 120px;
     position: absolute;

@@ -28,13 +28,12 @@ export class ModelService {
         this.bb8HeadGroup = headGroup;
         bb8Group.add(headGroup)
         this.bb8Mesh = bb8Group;
-        console.log(this.bb8Mesh);
         
         this.bb8Mesh.rotateY(Math.PI)
         scene.add(this.bb8Mesh)
       },
       () => {
-        console.log('progress');
+        //console.log('progress');
         
       }
     )}
