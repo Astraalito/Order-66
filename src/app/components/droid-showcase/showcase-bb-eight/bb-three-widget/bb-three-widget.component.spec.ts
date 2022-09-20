@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThreeWidgetComponent } from './three-widget.component';
+import { BbThreeWidgetComponent } from './bb-three-widget.component';
 
-describe('ThreeWidgetComponent', () => {
-  let component: ThreeWidgetComponent;
-  let fixture: ComponentFixture<ThreeWidgetComponent>;
+describe('BbThreeWidgetComponent', () => {
+  let component: BbThreeWidgetComponent;
+  let fixture: ComponentFixture<BbThreeWidgetComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ThreeWidgetComponent ]
+      declarations: [ BbThreeWidgetComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ThreeWidgetComponent);
+    fixture = TestBed.createComponent(BbThreeWidgetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

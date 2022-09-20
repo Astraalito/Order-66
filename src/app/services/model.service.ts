@@ -1,40 +1,39 @@
-import { Injectable } from '@angular/core';
 import * as THREE from 'three';
-import { Material, Object3D } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { Object3D } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+enum LoadStatus {
+  DONE,
+  PROGRESS,
+  ERROR
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModelService {
 
+  loadStatus : LoadStatus;
   gltfLoader: GLTFLoader = new GLTFLoader();
-  bb8Mesh : Object3D;
-  bb8HeadGroup : Object3D;
 
-  constructor() { }
+  public modelMesh: BehaviorSubject<Object3D[]> = new BehaviorSubject<Object3D[]>( [new THREE.Object3D()]);
 
-  public loadModel(src : string, scene : THREE.Scene) {
-    const bb8Group = new THREE.Group();
-    const headGroup = new THREE.Group();
+  constructor() { 
+    this.modelMesh.value[0].name = 'empty';
+  }
+
+  public loadModel(src : string): void {
     this.gltfLoader.load(
       src,
       (gltf) => {
+        this.loadStatus = LoadStatus.DONE;
         const modelObjects = [...gltf.scene.children]
-        for(const object of modelObjects){
-          bb8Group.add(object)   
-          if(object.name != 'body-sphere') {headGroup.add(object)}       
-        }
-        this.bb8HeadGroup = headGroup;
-        bb8Group.add(headGroup)
-        this.bb8Mesh = bb8Group;
-        
-        this.bb8Mesh.rotateY(Math.PI)
-        scene.add(this.bb8Mesh)
+        this.modelMesh.next(modelObjects);
       },
       () => {
-        //console.log('progress');
-        
+        this.loadStatus = LoadStatus.PROGRESS;
       }
     )}
 }

@@ -1,40 +1,45 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { PageController } from 'src/app/controllers/page-controller';
 
 @Component({
   selector: 'app-droid-showcase',
   templateUrl: './droid-showcase.component.html',
   styleUrls: ['./droid-showcase.component.css']
 })
-export class DroidShowcaseComponent implements OnInit, AfterViewInit {
+export class DroidShowcaseComponent implements AfterViewInit {
 
   @ViewChild('sections') sectionsWrapper: ElementRef;
 
-  scrollCount : number = 0;
-  sectionsNumber : number = 0;
-  activeSection : number = 0;
+  scrollCount : number;
+  scrollCountLimit : number;
 
-  constructor() { }
-
-  ngOnInit(): void {    
-    this.activeSection = (window.scrollY / window.innerHeight);
-  }
+  constructor(private pageController: PageController) { }
 
   ngAfterViewInit():void {
-    const scrollCountLimit = 5;
-    this.sectionsNumber = this.sectionsWrapper.nativeElement.children.length;
+    this.pageController.activeSection = (window.scrollY / window.innerHeight);
+    this.pageController.sectionsNumber = this.sectionsWrapper.nativeElement.children.length;
+
+    this.scrollCount = 0;
+    this.scrollCountLimit = 5;
     
     window.addEventListener('wheel', (event) => {
+      console.log(this.scrollCount)
       this.scrollCount += event.deltaY > 0 ? 1 : -1;
-      if(this.scrollCount >= scrollCountLimit) {
+      if(this.scrollCount >= this.scrollCountLimit) {
         this.scrollSection(window.innerHeight);
-      } else if (this.scrollCount <= -scrollCountLimit){
+        this.pageController.activeSection += 1
+      } else if (this.scrollCount <= -this.scrollCountLimit){
         this.scrollSection(-window.innerHeight);
+        this.pageController.activeSection -= 1
       }
     })
   }
 
   private scrollSection(scrollOffset:number) {
-    window.scrollBy(0, scrollOffset)
+    window.scrollBy({
+      top: scrollOffset,
+      behavior: 'smooth'
+    })
     this.scrollCount = 0
   }
 
