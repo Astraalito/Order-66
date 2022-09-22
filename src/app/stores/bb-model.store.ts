@@ -18,7 +18,6 @@ export class BbModelStore {
     this.modelService.modelMesh.subscribe( (meshArray) => {
       this.computeBBParts(meshArray, scene)
     })
-    this.modelService.loadModel('assets/models/lala/untitled.gltf')
   }
 
   private computeBBParts(meshArray: THREE.Object3D[], scene: THREE.Scene) {

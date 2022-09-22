@@ -3,9 +3,11 @@
     <i class="fa-brands fa-galactic-republic"><span>RDER-66</span></i>
   </a>
   <div class="actions">
-    <div class="language-btn action-section" (click)="this.toggleMenu()">
-      <i class="fa-solid fa-globe"></i>
-      <span class="button-text">Langage</span>
+    <div class="language action-section">
+      <div class="language-btn pointer" (click)="this.toggleMenu()">
+        <i class="fa-solid fa-globe"></i>
+        <span class="button-text">Langage</span>
+      </div>
     </div>
     <div class="order action-section">
       <a routerLink="/order" class="order-btn">
@@ -19,9 +21,9 @@
 <div class="blur-overlay" [ngClass]="{'activeBlur': isMenuEnabled}"></div>
 <div class="language-menu" [ngClass]="{'active': isMenuEnabled}">
   <div class="menu-header">
-    <i class="fa-solid fa-xmark clickable" (click)="this.toggleMenu()"></i>
+    <i class="fa-solid fa-xmark pointer" (click)="this.toggleMenu()"></i>
   </div>
-  <ul class="clickable">
+  <ul class="pointer">
     <li><span>Français</span></li>
     <li><span>Anglais</span></li>
   </ul>

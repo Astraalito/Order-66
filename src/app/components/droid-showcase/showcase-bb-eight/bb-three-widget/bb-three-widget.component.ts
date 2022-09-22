@@ -1,9 +1,12 @@
-import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
-import * as THREE from 'three'
-import { ThreeCustomOperationsService } from 'src/app/services/three-custom-operations.service';
+import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core'
+import { ThreeCustomOperationsService } from 'src/app/services/three-custom-operations.service'
 import { BbModelStore } from 'src/app/stores/bb-model.store';
 import { PageController } from 'src/app/controllers/page-controller';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+
+import * as THREE from 'three'
+import gsap from 'gsap'
+import { Scene, Vector3 } from 'three';
 
 
 @Component({
@@ -65,10 +68,13 @@ export class BbThreeWidgetComponent implements AfterViewInit {
     scene.add(ground) 
 
     //Fog
-    const fogColor = new THREE.Color('#eff0f3');  // white
-    const fogNear = 7.5;
-    const fogFar = 9.5;
-    scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
+    const fogProperties = {
+      fogColor : new THREE.Color('#eff0f3'),
+      fogNear : 7.5,
+      fogFar : 9.5
+    }
+    scene.fog = new THREE.Fog(fogProperties.fogColor, fogProperties.fogNear, fogProperties.fogFar);
+    
 
     /**
      * LIGHTS
@@ -94,11 +100,15 @@ export class BbThreeWidgetComponent implements AfterViewInit {
      * CONTROLS
      */
      const wrapperSection = document.getElementsByClassName('sections-wrapper')[0] as HTMLElement;
-     console.log(wrapperSection);
      
      const controls = new OrbitControls(camera, wrapperSection)
      controls.autoRotate = true
      controls.enableDamping = true
+     controls.enableZoom = false
+     controls.enablePan = false
+     controls.target = new Vector3(0, 0.7, 0)
+     controls.maxPolarAngle = Math.PI / 2
+     controls.minPolarAngle = Math.PI / 6
 
     /**
      * LISTENERS
@@ -125,6 +135,10 @@ export class BbThreeWidgetComponent implements AfterViewInit {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     })
 
+    this.pageController.activeSectionObservalbe.subscribe( (activeSection) => {
+      this.sectionChangeActions(activeSection, camera, fogProperties, scene, controls)
+    })
+
 
     /**
      * ANIMATE
@@ -133,24 +147,17 @@ export class BbThreeWidgetComponent implements AfterViewInit {
     const tick = () =>
     {
         const elapsedTime = clock.getElapsedTime()
-
         if(this.bbStore.bbFullMesh){
-          camera.lookAt(new THREE.Vector3(0, 0.3, 0));
-
           // Update controls
           controls.update()
-
-          this.bbFollowMouseAnim(1, camera)
+          this.bbFollowMouseAnim(2, camera)
         }
-
         // Render
         renderer.render(scene, camera)
         // Call tick again on the next frame
         window.requestAnimationFrame(tick)
     }
-
     tick()
-
   }
 
   private bbFollowMouseAnim(section: number, camera: THREE.Camera) {
@@ -170,6 +177,38 @@ export class BbThreeWidgetComponent implements AfterViewInit {
       const currentRotationZ = this.bbStore.bbHeadMesh.rotation.z
       const rotationDifference = baseRotationZ - currentRotationZ
       this.customOperations.rotateAround(this.bbStore.bbHeadMesh, this.bbStore.bbFullMesh.children[0].position, new THREE.Vector3(0, 0, distance * 2 + rotationDifference))
+    }
+  }
+
+  private sectionChangeActions(newSection: number, camera: THREE.PerspectiveCamera, fog: any, scene: THREE.Scene, controls: OrbitControls){
+    switch(newSection) {
+      case 1: {
+        controls.enabled = true
+        controls.autoRotate = true
+        gsap.to(this.bbStore.bbFullMesh.position, { x:0, duration: 0.5 })
+        gsap.to(this.bbStore.bbHeadMesh.rotation, { z:0, duration: 0.5 })
+        controls.target = new Vector3(0, 0.7, 0)
+        console.log('SECTION ACTIVE 1')
+        break; 
+      }
+      case 2: {
+        //statements; 
+        controls.enabled = false
+        controls.autoRotate = false
+        gsap.to(camera.position, { x:0, duration: 0.5 })
+        gsap.to(camera.position, { y:3, duration: 0.5 })
+        gsap.to(camera.position, { z:4, duration: 0.5 })
+        controls.target = new Vector3(0, 0.3, 0)
+        gsap.to(".widget", {opacity: 1, delay: 0.5, duration: 0.5})
+        console.log('SECTION ACTIVE 2')
+        break; 
+      }
+      case 3: {
+        //statements; 
+        gsap.to(".widget", {opacity: 0, duration: 0.5})
+        console.log('SECTION ACTIVE 3')
+        break; 
+      }
     }
   }
 }

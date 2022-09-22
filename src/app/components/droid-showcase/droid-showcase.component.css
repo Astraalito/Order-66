@@ -5,6 +5,11 @@
     width: 100vw;
     margin: 0;
     z-index: -1;
+    overflow: hidden;
+}
+
+.section {
+    overflow: hidden;
 }
 
 :host ::ng-deep .showcase-section{
@@ -14,7 +19,9 @@
 }
 
 :host ::ng-deep .showcase-section .wrapper {
+    height: 100%;
     padding-top: var(--navbar-height);
+    box-sizing: border-box;
 }
 
 :host ::ng-deep .lower-section{
@@ -34,8 +41,4 @@
     display: flex;
     align-items: center; 
     justify-content: space-between;
-}
-
-.section {
-    pointer-events: none;
 }

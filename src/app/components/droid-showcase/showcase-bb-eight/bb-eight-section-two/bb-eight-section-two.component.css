@@ -1,0 +1,17 @@
+.showcase-section .droid-title {
+    padding: 24px 0;
+    width: 100vw;
+    text-align: center;
+}
+
+.description-section{
+    width: 100%;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+.description {
+    padding: 0 7vw;
+    text-align: center;
+}
