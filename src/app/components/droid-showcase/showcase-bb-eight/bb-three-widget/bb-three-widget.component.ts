@@ -6,7 +6,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import * as THREE from 'three'
 import gsap from 'gsap'
-import { Scene, Vector3 } from 'three';
 
 
 @Component({
@@ -106,7 +105,7 @@ export class BbThreeWidgetComponent implements AfterViewInit {
      controls.enableDamping = true
      controls.enableZoom = false
      controls.enablePan = false
-     controls.target = new Vector3(0, 0.7, 0)
+     controls.target = new THREE.Vector3(0, 0.7, 0)
      controls.maxPolarAngle = Math.PI / 2
      controls.minPolarAngle = Math.PI / 6
 
@@ -187,7 +186,7 @@ export class BbThreeWidgetComponent implements AfterViewInit {
         controls.autoRotate = true
         gsap.to(this.bbStore.bbFullMesh.position, { x:0, duration: 0.5 })
         gsap.to(this.bbStore.bbHeadMesh.rotation, { z:0, duration: 0.5 })
-        controls.target = new Vector3(0, 0.7, 0)
+        controls.target = new THREE.Vector3(0, 0.7, 0)
         console.log('SECTION ACTIVE 1')
         break; 
       }
@@ -198,7 +197,7 @@ export class BbThreeWidgetComponent implements AfterViewInit {
         gsap.to(camera.position, { x:0, duration: 0.5 })
         gsap.to(camera.position, { y:3, duration: 0.5 })
         gsap.to(camera.position, { z:4, duration: 0.5 })
-        controls.target = new Vector3(0, 0.3, 0)
+        controls.target = new THREE.Vector3(0, 0.3, 0)
         gsap.to(".widget", {opacity: 1, delay: 0.5, duration: 0.5})
         console.log('SECTION ACTIVE 2')
         break; 

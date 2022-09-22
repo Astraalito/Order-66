@@ -1,0 +1,19 @@
+{
+    "navbar": {
+        "language": "Language",
+        "order": "Order Now",
+        "french": "French",
+        "english(USA)": "English (USA)"
+    },
+    "bb-8-showcase": {
+        "subtitle" : "The Reckless",
+        "carac-1-nb": "69 weeks",
+        "carac-1-txt": "Autonomy",
+        "carac-2-nb": "26 mph",
+        "carac-2-txt": "Maximum speed",
+        "carac-3-nb": "42M",
+        "carac-3-txt": "Repair protocols",
+        "carac-4-nb": "2,1ft",
+        "carac-4-txt": "Plein pieds"
+    }
+}
