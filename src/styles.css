@@ -50,7 +50,7 @@
 }
 
 :root{
-    --navbar-height: calc(12px + 12px + 2rem + 2px);
+    --navbar-height: calc(12px + 12px + 2rem + 4px);
     --color-background: #eff0f3;
     --color-background-secondary: #fff
     --color-headline: #0d0d0d;
@@ -59,10 +59,13 @@
     --color-button-text: #0d0d0d;
 }
 
+html {
+    height: 100%;
+}
+
 body{
     background-color: var(--color-background);
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
     font-family: 'Open-Sans', 'arial', sans-serif;
 }
 
@@ -83,6 +86,7 @@ h3 {
 }
 
 .noselect {
+    pointer-events: none;
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -90,4 +94,22 @@ h3 {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+@media screen and (max-width: 720px) {
+    h1 {
+        font-family: 'Gotham-Book';
+        font-size: 1.5em;
+        color: var(--color-headline)
+    }
+    h2 {
+        font-family: 'Gotham-Book';
+        font-size: 1.3em;
+        color: var(--color-headline)
+    }
+    h3 {
+        font-family: 'Gotham-Thin';
+        font-size: 1em;
+        color: var(--color-headline)
+    }
 }

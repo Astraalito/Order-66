@@ -1,18 +1,18 @@
 <nav class="navbar">
-  <a routerLink="/" class="logo">
+  <a href="/" class="logo">
     <i class="fa-brands fa-galactic-republic"><span>RDER-66</span></i>
   </a>
   <div class="actions">
     <div class="language action-section">
       <div class="language-btn pointer" (click)="this.toggleMenu()">
         <i class="fa-solid fa-globe"></i>
-        <span class="button-text">Langage</span>
+        <span class="button-text">{{ "navbar.language" | translate }}</span>
       </div>
     </div>
     <div class="order action-section">
       <a routerLink="/order" class="order-btn">
         <i class="fa-solid fa-cart-shopping"></i>
-        <span class="button-text">Commander</span>
+        <span class="button-text">{{ "navbar.order" | translate }}</span>
       </a>
     </div>
   </div>
@@ -24,9 +24,9 @@
     <i class="fa-solid fa-xmark pointer" (click)="this.toggleMenu()"></i>
   </div>
   <ul class="pointer">
-    <li><span>Français</span></li>
-    <li><span>Anglais</span></li>
+    <li><span (click)="this.setLanguage('fr-FR')">{{ "navbar.french" | translate }}</span></li>
+    <li><span (click)="this.setLanguage('en-US')">{{ "navbar.english" | translate }}</span></li>
   </ul>
 </div>
 
-<router-outlet class="noselect"></router-outlet>
+<router-outlet class="router"></router-outlet>

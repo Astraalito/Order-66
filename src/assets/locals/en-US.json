@@ -3,9 +3,9 @@
         "language": "Language",
         "order": "Order Now",
         "french": "French",
-        "english(USA)": "English (USA)"
+        "english": "English"
     },
-    "bb-8-showcase": {
+    "bb-shc": {
         "subtitle" : "The Reckless",
         "carac-1-nb": "69 weeks",
         "carac-1-txt": "Autonomy",
@@ -14,6 +14,14 @@
         "carac-3-nb": "42M",
         "carac-3-txt": "Repair protocols",
         "carac-4-nb": "2,1ft",
-        "carac-4-txt": "Plein pieds"
+        "carac-4-txt": "Body height",
+        
+        "sec2-title":"It rolls !",
+        "sec2-desc":"With its gyro-magnetic movement system, bb-8's moves are facilitated on all types of terrains. The GyrOB-X2 sphero-body offers an incredible power and acceleration, never seen before for an astromech droid.",
+        
+        "layout1-title":"The ideal buddy !",
+        "layout1-txt":"With its 600+ emotional protocols BB-8 will know how to adapt to all its interlocutors as well as all the situations it encounters.",
+        "layout2-title":"Reduced format",
+        "layout2-txt":"Don't be fooled by its small size, despite the fact that BB-8 is almost 2 times smaller than its predecessors, it is as many times more effective in the field!"
     }
 }

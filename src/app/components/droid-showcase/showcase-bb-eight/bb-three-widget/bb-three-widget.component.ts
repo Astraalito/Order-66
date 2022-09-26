@@ -30,7 +30,7 @@ export class BbThreeWidgetComponent implements AfterViewInit {
   constructor(
     private bbStore : BbModelStore,
     private customOperations : ThreeCustomOperationsService,
-    private pageController : PageController
+    public pageController : PageController
     ) { }
 
   ngAfterViewInit() {
@@ -98,9 +98,9 @@ export class BbThreeWidgetComponent implements AfterViewInit {
     /**
      * CONTROLS
      */
-     const wrapperSection = document.getElementsByClassName('sections-wrapper')[0] as HTMLElement;
+     const sectionControl = document.getElementsByClassName('section1-control')[0] as HTMLElement;
      
-     const controls = new OrbitControls(camera, wrapperSection)
+     const controls = new OrbitControls(camera, sectionControl)
      controls.autoRotate = true
      controls.enableDamping = true
      controls.enableZoom = false
@@ -204,8 +204,22 @@ export class BbThreeWidgetComponent implements AfterViewInit {
       }
       case 3: {
         //statements; 
-        gsap.to(".widget", {opacity: 0, duration: 0.5})
+        //gsap.to(".widget", {opacity: 0, duration: 0.5})
         console.log('SECTION ACTIVE 3')
+        break; 
+      }
+      default: {
+        console.log('DEFAULT')
+        controls.enabled = false
+        controls.autoRotate = false
+        gsap.to(camera.position, { x:0, duration: 0.5 })
+        gsap.to(camera.position, { y:3, duration: 0.5 })
+        gsap.to(camera.position, { z:4, duration: 0.5 })
+        gsap.to(this.bbStore.bbFullMesh.position, { x:0, duration: 0.5 })
+        gsap.to(this.bbStore.bbHeadMesh.rotation, { z:0, duration: 0.5 })
+        controls.target = new THREE.Vector3(0, 0.3, 0)
+        gsap.to(".widget", {opacity: 1, delay: 0.5, duration: 0.5})
+        console.log('SECTION ACTIVE 2')
         break; 
       }
     }

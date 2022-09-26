@@ -126,6 +126,10 @@
     cursor: pointer;
 }
 
+.router {
+    height: 100%;
+}
+
 @media screen and (max-width: 720px) {
     .button-text{
         display: none;
@@ -150,7 +154,7 @@
 
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 850px) {
     .navbar{
         padding: none;
     }

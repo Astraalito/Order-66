@@ -11,14 +11,14 @@ export class AppComponent {
   title = 'droid-shop';
   selectedLanguage = 'fr';
 
-  constructor() {}
+  constructor(private translateService: TranslateService) {}
 
   toggleMenu():void {
-    console.log('lala');
     this.isMenuEnabled = !this.isMenuEnabled
   }
 
   setLanguage(lang: string) {    
+    this.translateService.use(lang)
     this.selectedLanguage = lang;
     this.toggleMenu()
   }

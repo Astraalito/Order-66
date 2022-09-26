@@ -4,5 +4,21 @@
     left: 0;
     z-index: -1000;
     opacity: 1;
-    pointer-events: none;
+}
+
+.control-target {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -999;
+}
+
+@media screen and (max-width: 720px) {
+
+    .control-target{
+        width: 0;
+        height: 0;
+    }
 }

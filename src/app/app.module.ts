@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { SharedTranslateModule } from './translate/translate.module';
 
 import { AppComponent } from './app.component';
 import { DroidShowcaseComponent } from './components/droid-showcase/droid-showcase.component';
@@ -22,6 +23,7 @@ import { BbOverlayComponent } from './components/droid-showcase/showcase-bb-eigh
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    SharedTranslateModule,
     AppRoutingModule,
   ],
   providers: [],

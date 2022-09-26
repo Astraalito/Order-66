@@ -1,29 +1,33 @@
-<div @fade class="sections-wrapper">
+<div @fade #overlay class="sections-wrapper">
 
     <!-- SECTION 1 -->
     <div class="showcase-section">
+        <div class="toggle-control-btn mobileSize" (click)="this.toggleControls()" [ngClass]="{'toggled-btn' : this.isControlsEnabled}">
+            <i class="fa-solid fa-camera-rotate"></i>
+        </div>
+        <div class="section1-control" [ngClass]="{'noselect' : this.isOnMobile &&  !this.isControlsEnabled}"></div>
         <div class="wrapper">
-            <div class="droid-title">
+            <div class="droid-title noselect">
                 <h1>BB-8</h1>
-                <h3>"Le Téméraire"</h3>
+                <h3>"{{ "bb-shc.subtitle" | translate}}"</h3>
             </div>
-            <div class="lower-section">
+            <div class="lower-section noselect">
                 <div class="caracteristics-section">
                     <div class="caracteristic-badge">
-                        <h2>69 semaines</h2>
-                        <span>Autonomie</span>
+                        <h2>{{ "bb-shc.carac-1-nb" | translate}}</h2>
+                        <span>{{ "bb-shc.carac-1-txt" | translate}}</span>
                     </div>
                     <div class="caracteristic-badge">
-                        <h2>42km/h</h2>
-                        <span>Vitesse maximale</span>
+                        <h2>{{ "bb-shc.carac-2-nb" | translate}}</h2>
+                        <span>{{ "bb-shc.carac-2-txt" | translate}}</span>
                     </div>
                     <div class="caracteristic-badge">
-                        <h2>69 000+</h2>
-                        <span>Protocoles de réparation</span>
+                        <h2>{{ "bb-shc.carac-3-nb" | translate}}</h2>
+                        <span>{{ "bb-shc.carac-3-txt" | translate}}</span>
                     </div>
                     <div class="caracteristic-badge">
-                        <h2>0,67m</h2>
-                        <span>Plein pieds</span>
+                        <h2>{{ "bb-shc.carac-4-nb" | translate}}</h2>
+                        <span>{{ "bb-shc.carac-4-txt" | translate}}</span>
                     </div>
                 </div>
             </div>
@@ -36,12 +40,8 @@
             <div class="lower-section">
                 <div class="description-section">
                     <div class="description">
-                        <h1>Ca roule !</h1>
-                        <span>Avec son systeme de déplacement gyro-magnétique,
-                            les mouvement du droïde sont facilités sur <b>tous
-                            les terrains</b>. Le sphero-corps GyrOB-X2 offre 
-                            une <b>puissance</b> et une <b>accélération</b> incroyables 
-                            pouvant aller jusqu'a 42km/h.</span>
+                        <h1>{{ "bb-shc.sec2-title" | translate }}</h1>
+                        <span>{{ "bb-shc.sec2-desc" | translate }}</span>
                     </div>
                 </div>
             </div>
@@ -57,14 +57,14 @@
                         <img src="../../../../../assets/images/bb_alone.jpeg" alt="image">
                     </div>
                     <div class="layout-text text-right">
-                        <h2>L'acolyte idéal !</h2>
-                        <span>Avec ses 600+ protocoles émotionnels BB-8 saura d'adapter à tous ses interlocuteurs ainsi qu'a toutes les situations qu'il rencontre.</span>
+                        <h2>{{ "bb-shc.layout1-title" | translate }}</h2>
+                        <span>{{ "bb-shc.layout1-txt" | translate }}</span>
                     </div>
                 </div>
                 <div class="layout-section" #layoutTwo [@enterView]="layoutTwoState" style="transform: translateY(50px);">
                     <div class="layout-text text-left">
-                        <h2>Format réduit</h2>
-                        <span>Ne vous fiez pas à sa petite taille, malgrès le fait que BB-8 soit 2 fois plus petit que ses prédécesseurs, il est autant de fois plus efficace sur le terrain !</span>
+                        <h2>{{ "bb-shc.layout2-title" | translate }}</h2>
+                        <span>{{ "bb-shc.layout2-txt" | translate }}</span>
                     </div>
                     <div class="layout-img">
                         <img src="../../../../../assets/images/bb_r2.png" alt="image">

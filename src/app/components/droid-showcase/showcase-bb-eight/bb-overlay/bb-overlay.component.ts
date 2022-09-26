@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 import { trigger, state, style, transition, animate } from '@angular/animations'
+import { PageController } from 'src/app/controllers/page-controller';
 
 @Component({
   selector: 'app-bb-overlay',
@@ -23,10 +24,15 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
   ]
 })
-export class BbOverlayComponent implements OnInit {
+export class BbOverlayComponent implements AfterViewInit {
+
+  @ViewChild("overlay") overlayElement: ElementRef;
 
   @ViewChild("layoutOne") layout1: ElementRef
   @ViewChild("layoutTwo") layout2: ElementRef
+
+  isControlsEnabled : boolean = false;
+  isOnMobile: boolean = false;
 
   showLayout1 = false;
   showLayout2 = false;
@@ -38,18 +44,42 @@ export class BbOverlayComponent implements OnInit {
     return this.showLayout2 ? 'show' : 'hide'
   }
 
-  constructor() { }
+  constructor(private pageController : PageController) { }
 
-  ngOnInit(): void {
-    addEventListener('scroll', () => {
-      this.showLayout1 = this.isElementOnScreen(this.layout1.nativeElement.getBoundingClientRect().top)
-      this.showLayout2 = this.isElementOnScreen(this.layout2.nativeElement.getBoundingClientRect().top)
+  ngAfterViewInit(): void {
+    const overlay = this.overlayElement.nativeElement
+    this.computeActiveSection(overlay)
+    overlay.addEventListener('scroll', () => {
+      this.computeActiveSection(overlay)
+      this.showLayout1 = this.isOnScreen(this.layout1.nativeElement.getBoundingClientRect().top)
+      this.showLayout2 = this.isOnScreen(this.layout2.nativeElement.getBoundingClientRect().top)
     })
-    
+
+    this.checkPhoneUsage()
   }
 
-  private isElementOnScreen(posY: number):boolean {
+  private computeActiveSection(overlay: HTMLElement){
+    const scrollMod = overlay.scrollTop % window.innerHeight
+    if(scrollMod > -1 && scrollMod < 1) {
+      const activeSection = Math.round(overlay.scrollTop/window.innerHeight)
+      this.pageController.activeSection = activeSection + 1
+    } else {
+      this.pageController.activeSection = 0
+    }
+  }
+
+  private isOnScreen(posY: number):boolean {
     return posY > 0 && posY < window.innerHeight
+  }
+
+  toggleControls():void {    
+    this.isControlsEnabled = !this.isControlsEnabled
+  }
+
+  checkPhoneUsage() {
+    if ( navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
+      this.isOnMobile = true;
+    }
   }
 
 }
