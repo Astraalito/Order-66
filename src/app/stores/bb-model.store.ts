@@ -7,9 +7,9 @@ import * as THREE from 'three';
 })
 export class BbModelStore {
 
-  bbFullMesh : THREE.Object3D
-  bbHeadMesh : THREE.Group
-  bbBodyMesh : THREE.Object3D
+  bbFullMesh : THREE.Object3D = new THREE.Group()
+  bbHeadMesh : THREE.Group = new THREE.Group()
+  bbBodyMesh : THREE.Group = new THREE.Group()
 
   constructor(private modelService: ModelService) { }
 
@@ -21,18 +21,16 @@ export class BbModelStore {
   }
 
   private computeBBParts(meshArray: THREE.Object3D[], scene: THREE.Scene) {
-    const bb8Head = new THREE.Group();
-    const bb8Group = new THREE.Group();
+    const bodyRegex = new RegExp('^b-')
   
     if(meshArray[0].name != 'empty') {
-      for(const mesh of meshArray){
-        bb8Group.add(mesh)   
-        if(mesh.name != 'body-sphere') {bb8Head.add(mesh)} 
+      for(const mesh of meshArray as Array<THREE.Mesh>){
+        this.bbHeadMesh.add(mesh)
+        if(bodyRegex.test(mesh.name)){
+          this.bbBodyMesh.add(mesh)
+        }
       }
-      this.bbHeadMesh = bb8Head
-      bb8Group.add(bb8Head)
-      this.bbFullMesh = bb8Group
-  
+      this.bbFullMesh.add(this.bbBodyMesh, this.bbHeadMesh)
       this.bbFullMesh.rotateY(Math.PI)
       scene.add(this.bbFullMesh)
     }

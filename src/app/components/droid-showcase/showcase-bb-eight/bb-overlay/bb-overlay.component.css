@@ -162,6 +162,36 @@
     box-sizing: border-box;
 }
 
+/***
+* SECTION 4
+*/
+.right-section {
+    height: 100%;
+    width: 50vw;
+    padding: 48px;
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+}
+.right-section {
+    height: 100%;
+    width: 50vw;
+    padding: 48px 72px;
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+}
+.right-section .description{
+    padding: 0;
+}
 
 @media screen and (max-width: 750px) {
     .lower-section{

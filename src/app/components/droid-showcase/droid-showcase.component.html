@@ -1,4 +1,8 @@
-<div *ngIf="this.modelLoadStatus === 1">
+<div>
     <app-bb-overlay class="section"></app-bb-overlay>
-    <app-bb-three-widget class="widget"></app-bb-three-widget>
+    <app-bb-three-widget class="widget" *ngIf="this.modelLoadStatus === 1"></app-bb-three-widget>
+    <div @fade class="loader" *ngIf="this.modelLoadStatus === 2">
+        <div class="lds-dual-ring"></div>
+        <img src="assets/images/bb_8-ico.png" alt="image" class="loader-img">
+    </div>
 </div>

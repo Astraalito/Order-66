@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs'
 })
 export class PageController {
 
-  public sectionsNumber : number = 3;
+  public sectionsNumber : number = 4;
 
   public activeSectionObservalbe : BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _activeSection : number;
@@ -27,16 +27,14 @@ export class PageController {
     this.activeSection = 1
   }
 
-  public computeActiveSection(sectionRatio: number) {
-    if(sectionRatio < 0.6){
-      this.activeSection = 1;
-    } else if ( sectionRatio > 0.9 && sectionRatio < 1.1 ) {
-      this.activeSection = 2;
-    } else if ( sectionRatio > 1.1) {
-      this.activeSection = 3
+  public computeActiveSection(overlay: HTMLElement){
+    const scrollMod = overlay.scrollTop % window.innerHeight  
+    if(scrollMod >= -1 && scrollMod <= 1) {
+      const activeSection = Math.round(overlay.scrollTop/window.innerHeight)
+      this.activeSection = activeSection + 1
     } else {
       this.activeSection = 0
     }
-
+    
   }
 }

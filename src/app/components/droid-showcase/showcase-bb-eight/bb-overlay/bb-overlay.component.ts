@@ -48,24 +48,14 @@ export class BbOverlayComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const overlay = this.overlayElement.nativeElement
-    this.computeActiveSection(overlay)
+    this.pageController.computeActiveSection(overlay)
     overlay.addEventListener('scroll', () => {
-      this.computeActiveSection(overlay)
+      this.pageController.computeActiveSection(overlay)
       this.showLayout1 = this.isOnScreen(this.layout1.nativeElement.getBoundingClientRect().top)
       this.showLayout2 = this.isOnScreen(this.layout2.nativeElement.getBoundingClientRect().top)
     })
 
     this.checkPhoneUsage()
-  }
-
-  private computeActiveSection(overlay: HTMLElement){
-    const scrollMod = overlay.scrollTop % window.innerHeight
-    if(scrollMod > -1 && scrollMod < 1) {
-      const activeSection = Math.round(overlay.scrollTop/window.innerHeight)
-      this.pageController.activeSection = activeSection + 1
-    } else {
-      this.pageController.activeSection = 0
-    }
   }
 
   private isOnScreen(posY: number):boolean {
@@ -79,6 +69,9 @@ export class BbOverlayComponent implements AfterViewInit {
   checkPhoneUsage() {
     if ( navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
       this.isOnMobile = true;
+      window.addEventListener("devicemotion", (event) => {
+        console.log(event);
+      })
     }
   }
 
