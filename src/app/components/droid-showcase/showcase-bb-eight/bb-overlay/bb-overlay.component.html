@@ -5,7 +5,7 @@
         <div class="toggle-control-btn mobileSize" (click)="this.toggleControls()" [ngClass]="{'toggled-btn' : this.isControlsEnabled}">
             <i class="fa-solid fa-camera-rotate"></i>
         </div>
-        <div class="section1-control" [ngClass]="{'noselect' : this.isOnMobile &&  !this.isControlsEnabled}"></div>
+        <div class="section1-control" [ngClass]="{'noselect' : this.deviceService.isOnMobile &&  !this.isControlsEnabled}"></div>
         <div class="wrapper">
             <div class="droid-title noselect">
                 <h1>BB-8</h1>

@@ -8,6 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import { ToneMapping } from 'three';
+import { DeviceService } from 'src/app/services/device.service';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class BbThreeWidgetComponent implements AfterViewInit {
 
   @ViewChild('widget') canvasElement : ElementRef;
 
+  rollAnimIsEnabled = false
+
   cursor = {
     x: 0,
     y: 0
@@ -40,6 +43,7 @@ export class BbThreeWidgetComponent implements AfterViewInit {
   constructor(
     private bbStore : BbModelStore,
     private customOperations : ThreeCustomOperationsService,
+    private deviceService : DeviceService,
     public pageController : PageController
     ) { }
 
@@ -161,7 +165,12 @@ export class BbThreeWidgetComponent implements AfterViewInit {
         if(this.bbStore.bbFullMesh){
           // Update controls
           controls.update()
-          this.bbFollowMouseAnim(2, camera)
+          // this.rollingAnim(camera)
+          if(this.deviceService.isOnMobile) {
+            this.rollingAnim(this.deviceService.deviceOrientation, camera)
+          } else {
+            this.rollingAnim(this.cursor.x, camera)
+          }
         }
         spotlight.position.set(
           camera.position.x + 10,
@@ -176,10 +185,10 @@ export class BbThreeWidgetComponent implements AfterViewInit {
     tick()
   }
 
-  private bbFollowMouseAnim(section: number, camera: THREE.Camera) {
-    if(section == this.pageController.activeSection) {
+  private rollingAnim(directionValue : number, camera: THREE.Camera) {
+    if(this.rollAnimIsEnabled) {
       //displacement
-      const newPos = (this.customOperations.getZposUnderMouse(this.cursor.x, camera))
+      const newPos = (this.customOperations.getZposUnderMouse(directionValue, camera))
       const currentPos = this.bbStore.bbFullMesh.position
       const distance = ((newPos.x - currentPos.x) / 2) * 0.1
       this.bbStore.bbFullMesh.position.x += distance
@@ -201,17 +210,17 @@ export class BbThreeWidgetComponent implements AfterViewInit {
     const trap = this.bbStore.bbBodyMesh.getObjectByName('b-trap')
     switch(newSection) {
       case 1: {
+        console.log('SECTION ACTIVE 1')
         controls.enabled = true
         controls.autoRotate = true
         gsap.to(this.bbStore.bbFullMesh.position, { x:0, duration: 0.5 })
         gsap.to(this.bbStore.bbHeadMesh.rotation, { z:0, duration: 0.5 })
-        console.log(this.bbStore.bbBodyMesh.rotation)
         controls.target = new THREE.Vector3(0, 0.8, 0)
-        console.log('SECTION ACTIVE 1')
         break; 
       }
       case 2: {
-        //statements; 
+        console.log('SECTION ACTIVE 2')
+        this.rollAnimIsEnabled = true
         controls.enabled = false
         controls.autoRotate = false
         gsap.to(camera.position, { x:0, duration: 0.5 })
@@ -219,7 +228,6 @@ export class BbThreeWidgetComponent implements AfterViewInit {
         gsap.to(camera.position, { z:5, duration: 0.5 })
         gsap.to(controls.target, { y:0.35, duration: 0.5})
         gsap.to(".widget", {opacity: 1, delay: 0.5, duration: 0.5})
-        console.log('SECTION ACTIVE 2')
         break; 
       }
       case 3: {
@@ -247,6 +255,7 @@ export class BbThreeWidgetComponent implements AfterViewInit {
       }
       default: {
         console.log('DEFAULT')
+        this.rollAnimIsEnabled = false
         controls.enabled = false
         controls.autoRotate = false
         gsap.to(camera.position, { x:0, duration: 0.5 })

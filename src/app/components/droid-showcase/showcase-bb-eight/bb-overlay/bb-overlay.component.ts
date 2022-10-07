@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angula
 
 import { trigger, state, style, transition, animate } from '@angular/animations'
 import { PageController } from 'src/app/controllers/page-controller';
+import { DeviceService } from 'src/app/services/device.service';
 
 @Component({
   selector: 'app-bb-overlay',
@@ -32,7 +33,6 @@ export class BbOverlayComponent implements AfterViewInit {
   @ViewChild("layoutTwo") layout2: ElementRef
 
   isControlsEnabled : boolean = false;
-  isOnMobile: boolean = false;
 
   showLayout1 = false;
   showLayout2 = false;
@@ -44,7 +44,8 @@ export class BbOverlayComponent implements AfterViewInit {
     return this.showLayout2 ? 'show' : 'hide'
   }
 
-  constructor(private pageController : PageController) { }
+  constructor(private pageController : PageController,
+              public deviceService : DeviceService) { }
 
   ngAfterViewInit(): void {
     const overlay = this.overlayElement.nativeElement
@@ -54,7 +55,6 @@ export class BbOverlayComponent implements AfterViewInit {
       this.showLayout1 = this.isOnScreen(this.layout1.nativeElement.getBoundingClientRect().top)
       this.showLayout2 = this.isOnScreen(this.layout2.nativeElement.getBoundingClientRect().top)
     })
-
     this.checkPhoneUsage()
   }
 
@@ -68,9 +68,16 @@ export class BbOverlayComponent implements AfterViewInit {
 
   checkPhoneUsage() {
     if ( navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
-      this.isOnMobile = true;
+      this.deviceService.isOnMobile = true;
+      window.addEventListener("deviceorientation", (event) => {
+        if(event.alpha && event.alpha <= 45){
+          this.deviceService.deviceOrientation = -(event.alpha / 45)
+        } else if(event.alpha && event.alpha >= 315) {
+          this.deviceService.deviceOrientation = 1 - (event.alpha - 315) / 45
+        }
+      })
       window.addEventListener("devicemotion", (event) => {
-        console.log(event);
+        console.log(event.rotationRate?.alpha);
       })
     }
   }

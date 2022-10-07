@@ -29,7 +29,7 @@ export class PageController {
 
   public computeActiveSection(overlay: HTMLElement){
     const scrollMod = overlay.scrollTop % window.innerHeight  
-    if(scrollMod >= -1 && scrollMod <= 1) {
+    if(scrollMod >= window.innerHeight-2 || scrollMod <= 2) {
       const activeSection = Math.round(overlay.scrollTop/window.innerHeight)
       this.activeSection = activeSection + 1
     } else {

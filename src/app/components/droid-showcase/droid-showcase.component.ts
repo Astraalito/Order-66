@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, style, transition, animate } from '@angular/animations'
 import { ModelService } from 'src/app/services/model.service';
 import { LoadStatus } from 'src/app/models/enums/loadStatus';
-import { PageController } from 'src/app/controllers/page-controller';
 
 @Component({
   selector: 'app-droid-showcase',
@@ -21,7 +20,7 @@ export class DroidShowcaseComponent implements OnInit {
 
   modelLoadStatus: LoadStatus
 
-  constructor(private modelService: ModelService, private pageController : PageController) { }
+  constructor(private modelService: ModelService) { }
 
   ngOnInit() : void{
     this.modelService.loadStatus.subscribe((status) => {
