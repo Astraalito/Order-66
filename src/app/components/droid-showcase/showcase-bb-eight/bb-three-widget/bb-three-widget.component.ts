@@ -7,8 +7,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import * as THREE from 'three'
 import gsap from 'gsap'
-import { ToneMapping } from 'three';
 import { DeviceService } from 'src/app/services/device.service';
+import { Vector3 } from 'three';
 
 
 @Component({
@@ -27,6 +27,7 @@ import { DeviceService } from 'src/app/services/device.service';
 export class BbThreeWidgetComponent implements AfterViewInit {
 
   @ViewChild('widget') canvasElement : ElementRef;
+  activeSection : number;
 
   rollAnimIsEnabled = false
 
@@ -38,6 +39,14 @@ export class BbThreeWidgetComponent implements AfterViewInit {
   windowSizes = {
     width: window.innerWidth,
     height: window.innerHeight
+  }
+
+  cameraConf = {
+    conf: "default",
+    x: 0,
+    y: 0,
+    z: 0,
+    targetPos: new THREE.Vector3()
   }
 
   constructor(
@@ -60,7 +69,8 @@ export class BbThreeWidgetComponent implements AfterViewInit {
 
     //Camera
     const camera = new THREE.PerspectiveCamera(50, this.windowSizes.width / this.windowSizes.height, 0.1, 100)
-    camera.position.set(0,2,5.5);
+    this.computeCameraConf()
+    camera.position.set(this.cameraConf.x,this.cameraConf.y,this.cameraConf.z);
     scene.add(camera)  
 
     /**
@@ -121,7 +131,7 @@ export class BbThreeWidgetComponent implements AfterViewInit {
      controls.enableDamping = true
      controls.enableZoom = false
      controls.enablePan = false
-     controls.target = new THREE.Vector3(0, 0.7, 0)
+     controls.target = this.cameraConf.targetPos
      controls.maxPolarAngle = Math.PI / 2
      controls.minPolarAngle = Math.PI / 6
 
@@ -148,10 +158,14 @@ export class BbThreeWidgetComponent implements AfterViewInit {
       // Update renderer
       renderer.setSize(this.windowSizes.width, this.windowSizes.height)      
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+      this.computeCameraConf()
+      this.sectionChangeActions(this.activeSection, camera, fogProperties, scene, controls)
     })
 
     this.pageController.activeSectionObservalbe.subscribe( (activeSection) => {
-      this.sectionChangeActions(activeSection, camera, fogProperties, scene, controls)
+      this.activeSection = activeSection
+      this.sectionChangeActions(this.activeSection, camera, fogProperties, scene, controls)
     })
 
 
@@ -205,6 +219,22 @@ export class BbThreeWidgetComponent implements AfterViewInit {
     }
   }
 
+  private computeCameraConf(){
+    if(this.windowSizes.width <= 750) {
+      this.cameraConf.conf = "mobile"
+      this.cameraConf.x = 0;
+      this.cameraConf.y = 2;
+      this.cameraConf.z = 6;
+      this.cameraConf.targetPos = new THREE.Vector3(0, 0.8, 0);
+    } else {
+      this.cameraConf.conf = "default"
+      this.cameraConf.x = 0;
+      this.cameraConf.y = 2;
+      this.cameraConf.z = 5.5;
+      this.cameraConf.targetPos = new THREE.Vector3(0, 0.8, 0);
+    }
+  }
+
   private sectionChangeActions(newSection: number, camera: THREE.PerspectiveCamera, fog: any, scene: THREE.Scene, controls: OrbitControls){
     const lighter = this.bbStore.bbBodyMesh.getObjectByName('b-lighter')
     const trap = this.bbStore.bbBodyMesh.getObjectByName('b-trap')
@@ -213,9 +243,9 @@ export class BbThreeWidgetComponent implements AfterViewInit {
         console.log('SECTION ACTIVE 1')
         controls.enabled = true
         controls.autoRotate = true
-        gsap.to(this.bbStore.bbFullMesh.position, { x:0, duration: 0.5 })
+        gsap.to(this.bbStore.bbFullMesh.position, { x:this.cameraConf.x, duration: 0.5 })
         gsap.to(this.bbStore.bbHeadMesh.rotation, { z:0, duration: 0.5 })
-        controls.target = new THREE.Vector3(0, 0.8, 0)
+        controls.target = this.cameraConf.targetPos
         break; 
       }
       case 2: {
@@ -223,9 +253,9 @@ export class BbThreeWidgetComponent implements AfterViewInit {
         this.rollAnimIsEnabled = true
         controls.enabled = false
         controls.autoRotate = false
-        gsap.to(camera.position, { x:0, duration: 0.5 })
+        gsap.to(camera.position, { x:this.cameraConf.x, duration: 0.5 })
         gsap.to(camera.position, { y:3.1, duration: 0.5 })
-        gsap.to(camera.position, { z:5, duration: 0.5 })
+        gsap.to(camera.position, { z:(this.cameraConf.z - 0.5), duration: 0.5 })
         gsap.to(controls.target, { y:0.35, duration: 0.5})
         gsap.to(".widget", {opacity: 1, delay: 0.5, duration: 0.5})
         break; 
@@ -236,7 +266,7 @@ export class BbThreeWidgetComponent implements AfterViewInit {
       }
       case 4: {
         console.log('SECTION ACTIVE 4')
-        gsap.to(this.bbStore.bbFullMesh.position, { x:-1.5, duration: 0.5 })
+        gsap.to(this.bbStore.bbFullMesh.position, { x:(this.cameraConf.conf == "mobile" ? -0.3 : -1.5), duration: 0.5 })
         gsap.to(this.bbStore.bbFullMesh.rotation, { y:-Math.PI/3.5, duration: 0.5 })
 
         if(lighter && trap){
@@ -248,9 +278,9 @@ export class BbThreeWidgetComponent implements AfterViewInit {
 
         gsap.to(camera.position, { x:0, duration: 0.5 })
         gsap.to(camera.position, { y:1, duration: 0.5 })
-        gsap.to(camera.position, { z:4, duration: 0.5 })
+        gsap.to(camera.position, { z:this.cameraConf.z, duration: 0.5 })
 
-        gsap.to(controls.target, { y:0.4, duration: 0.5})
+        gsap.to(controls.target, { y:(this.cameraConf.conf == "mobile" ? 1.5 : 0.7), duration: 0.5})
         break; 
       }
       default: {
@@ -258,16 +288,16 @@ export class BbThreeWidgetComponent implements AfterViewInit {
         this.rollAnimIsEnabled = false
         controls.enabled = false
         controls.autoRotate = false
-        gsap.to(camera.position, { x:0, duration: 0.5 })
+        gsap.to(camera.position, { x:this.cameraConf.x, duration: 0.5 })
         gsap.to(camera.position, { y:2, duration: 0.5 })
-        gsap.to(camera.position, { z:5.5, duration: 0.5 })
+        gsap.to(camera.position, { z:this.cameraConf.z, duration: 0.5 })
         gsap.to(this.bbStore.bbFullMesh.position, { x:0, duration: 0.5 })
         gsap.to(this.bbStore.bbHeadMesh.rotation, { z:0, duration: 0.5 })
         controls.target = new THREE.Vector3(0, 0.8, 0)
         gsap.to(".widget", {opacity: 1, delay: 0.5, duration: 0.5})
         if(lighter && trap){
-          gsap.to(trap.rotation, {z: 0, duration: 0.5})
-          gsap.to(lighter.position, { x:0.3, delay: 0.5, duration: 0.5 })
+          gsap.to(trap.rotation, {z: 0, delay: 0.5, duration: 0.5})
+          gsap.to(lighter.position, { x:0.3, duration: 0.5 })
         }
         gsap.to(this.bbStore.bbFullMesh.rotation, { y:0, duration: 0.5 })
         gsap.to(this.bbStore.bbBodyMesh.rotation, { y:0, duration: 0.5 })

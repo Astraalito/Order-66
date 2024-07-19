@@ -1,1 +1,36 @@
-<p>order-page works!</p>
+<div class="order-wrapper">
+    <div class="widget-wrapper">
+        <canvas #widget></canvas>
+    </div>
+    <div class="conf-wrapper">
+        <div class="conf-header">
+            <h1>BB-8</h1>
+        </div>
+        <div class="conf-items-wrapper">
+            <div class="item">
+                <h2>Couleur</h2>
+                <div class="color-list">
+                    <img src="../../../assets/images/bb8-colors/color1.png" 
+                        class="material-color" (click)="this.selectedColor = 1" 
+                        [ngClass]="this.selectedColor === 1 ? 'selected-color' : ''">
+                    <img src="../../../assets/images/bb8-colors/color2.png" 
+                        class="material-color" (click)="this.selectedColor = 2" 
+                        [ngClass]="this.selectedColor === 2 ? 'selected-color' : ''">
+                    <img src="../../../assets/images/bb8-colors/color3.png" 
+                        class="material-color" (click)="this.selectedColor = 3" 
+                        [ngClass]="this.selectedColor === 3 ? 'selected-color' : ''">
+                    <img src="../../../assets/images/bb8-colors/color4.png" 
+                        class="material-color" (click)="this.selectedColor = 4" 
+                        [ngClass]="this.selectedColor === 4 ? 'selected-color' : ''">
+                </div>
+            </div>
+        </div>
+        <div class="order-btn-wrapper">
+            <span class="price">176 000 <i class="fa-solid fa-bitcoin-sign"></i></span>
+            <button class="order-btn">
+                <i class="fa-solid fa-credit-card"></i>
+                <span> Commander</span>
+            </button>
+        </div>
+    </div>
+</div>

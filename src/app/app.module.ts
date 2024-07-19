@@ -10,6 +10,7 @@ import { OrderPageComponent } from './components/order-page/order-page.component
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { BbThreeWidgetComponent } from './components/droid-showcase/showcase-bb-eight/bb-three-widget/bb-three-widget.component';
 import { BbOverlayComponent } from './components/droid-showcase/showcase-bb-eight/bb-overlay/bb-overlay.component';
+import { InProgressComponent } from './components/in-progress/in-progress.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { BbOverlayComponent } from './components/droid-showcase/showcase-bb-eigh
     PageNotFoundComponent,
     BbThreeWidgetComponent,
     BbOverlayComponent,
+    InProgressComponent,
   ],
   imports: [
     BrowserModule,
